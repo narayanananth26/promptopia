@@ -1,5 +1,7 @@
 // * RENDERS HOME PAGE
 
+import Feed from "@components/Feed";
+
 function Home() {
 	return (
 		<section className="w-full flex-center flex-col">
@@ -14,7 +16,7 @@ function Home() {
 				Promptopia is an open-source AI-prompting tool for modern world
 				to discover and share creative prompts
 			</p>
-			{/* Feed */}
+			<Feed />
 		</section>
 	);
 }
