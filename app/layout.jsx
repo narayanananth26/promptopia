@@ -1,3 +1,5 @@
+// * RENDERS ROOT LAYOUT
+
 import "@styles/globals.css";
 
 export const metadata = {
