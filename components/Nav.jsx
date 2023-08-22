@@ -1,15 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getProviders, signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
-function Nav() {
+const Nav = () => {
 	const { data: session } = useSession();
 
 	const [providers, setProviders] = useState(null);
-	const [toggleDropDown, setToggleDropDown] = useState(false);
+	const [toggleDropdown, setToggleDropdown] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -23,7 +23,7 @@ function Nav() {
 			<Link href="/" className="flex gap-2 flex-center">
 				<Image
 					src="/assets/images/logo.svg"
-					alt="Promptopia logo"
+					alt="logo"
 					width={30}
 					height={30}
 					className="object-contain"
@@ -34,7 +34,7 @@ function Nav() {
 			{/* Desktop Navigation */}
 			<div className="sm:flex hidden">
 				{session?.user ? (
-					<div className="flex gap-3  md:gap-5">
+					<div className="flex gap-3 md:gap-5">
 						<Link href="/create-prompt" className="black_btn">
 							Create Post
 						</Link>
@@ -49,18 +49,18 @@ function Nav() {
 
 						<Link href="/profile">
 							<Image
-								src="/assets/images/logo.svg"
+								src={session?.user.image}
 								width={37}
 								height={37}
 								className="rounded-full"
-								alt="Profile"
+								alt="profile"
 							/>
 						</Link>
 					</div>
 				) : (
 					<>
 						{providers &&
-							Object.values(providers).map((provider) => {
+							Object.values(providers).map((provider) => (
 								<button
 									type="button"
 									key={provider.name}
@@ -69,9 +69,9 @@ function Nav() {
 									}}
 									className="black_btn"
 								>
-									Sign In
-								</button>;
-							})}
+									Sign in
+								</button>
+							))}
 					</>
 				)}
 			</div>
@@ -81,38 +81,34 @@ function Nav() {
 				{session?.user ? (
 					<div className="flex">
 						<Image
-							src="/assets/images/logo.svg"
+							src={session?.user.image}
 							width={37}
 							height={37}
 							className="rounded-full"
-							alt="Profile"
-							onClick={() =>
-								setToggleDropDown((prevState) => !prevState)
-							}
+							alt="profile"
+							onClick={() => setToggleDropdown(!toggleDropdown)}
 						/>
 
-						{toggleDropDown && (
+						{toggleDropdown && (
 							<div className="dropdown">
 								<Link
 									href="/profile"
 									className="dropdown_link"
-									onClick={() => setToggleDropDown(false)}
+									onClick={() => setToggleDropdown(false)}
 								>
 									My Profile
 								</Link>
-
 								<Link
 									href="/create-prompt"
 									className="dropdown_link"
-									onClick={() => setToggleDropDown(false)}
+									onClick={() => setToggleDropdown(false)}
 								>
 									Create Prompt
 								</Link>
-
 								<button
 									type="button"
 									onClick={() => {
-										setToggleDropDown(false);
+										setToggleDropdown(false);
 										signOut();
 									}}
 									className="mt-5 w-full black_btn"
@@ -125,7 +121,7 @@ function Nav() {
 				) : (
 					<>
 						{providers &&
-							Object.values(providers).map((provider) => {
+							Object.values(providers).map((provider) => (
 								<button
 									type="button"
 									key={provider.name}
@@ -134,14 +130,14 @@ function Nav() {
 									}}
 									className="black_btn"
 								>
-									Sign In
-								</button>;
-							})}
+									Sign in
+								</button>
+							))}
 					</>
 				)}
 			</div>
 		</nav>
 	);
-}
+};
 
 export default Nav;
