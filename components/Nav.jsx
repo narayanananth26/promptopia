@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
-function Nav() {
+const Nav = () => {
 	const { data: session } = useSession();
 
 	const [providers, setProviders] = useState(null);
@@ -23,7 +23,7 @@ function Nav() {
 			<Link href="/" className="flex gap-2 flex-center">
 				<Image
 					src="/assets/images/logo.svg"
-					alt="Promptopia logo"
+					alt="logo"
 					width={30}
 					height={30}
 					className="object-contain"
@@ -31,9 +31,7 @@ function Nav() {
 				<p className="logo_text">Promptopia</p>
 			</Link>
 
-			{console.log(providers)}
-
-			{/* Desktop navigation */}
+			{/* Desktop Navigation */}
 			<div className="sm:flex hidden">
 				{session?.user ? (
 					<div className="flex gap-3 md:gap-5">
@@ -55,14 +53,14 @@ function Nav() {
 								width={37}
 								height={37}
 								className="rounded-full"
-								alt="User profile"
+								alt="profile"
 							/>
 						</Link>
 					</div>
 				) : (
 					<>
 						{providers &&
-							Object.values(providers).map((provider) => {
+							Object.values(providers).map((provider) => (
 								<button
 									type="button"
 									key={provider.name}
@@ -71,14 +69,14 @@ function Nav() {
 									}}
 									className="black_btn"
 								>
-									Sign In
-								</button>;
-							})}
+									Sign in
+								</button>
+							))}
 					</>
 				)}
 			</div>
 
-			{/* Mobile navigation */}
+			{/* Mobile Navigation */}
 			<div className="sm:hidden flex relative">
 				{session?.user ? (
 					<div className="flex">
@@ -87,10 +85,8 @@ function Nav() {
 							width={37}
 							height={37}
 							className="rounded-full"
-							alt="User profile"
-							onClick={() =>
-								setToggleDropdown((prevState) => !prevState)
-							}
+							alt="profile"
+							onClick={() => setToggleDropdown(!toggleDropdown)}
 						/>
 
 						{toggleDropdown && (
@@ -98,28 +94,24 @@ function Nav() {
 								<Link
 									href="/profile"
 									className="dropdown_link"
-									onClick={() => {
-										setToggleDropdown(false);
-									}}
+									onClick={() => setToggleDropdown(false)}
 								>
 									My Profile
 								</Link>
 								<Link
 									href="/create-prompt"
 									className="dropdown_link"
-									onClick={() => {
-										setToggleDropdown(false);
-									}}
+									onClick={() => setToggleDropdown(false)}
 								>
 									Create Prompt
 								</Link>
 								<button
 									type="button"
-									className="mt-5 w-full black_btn"
 									onClick={() => {
 										setToggleDropdown(false);
 										signOut();
 									}}
+									className="mt-5 w-full black_btn"
 								>
 									Sign Out
 								</button>
@@ -129,7 +121,7 @@ function Nav() {
 				) : (
 					<>
 						{providers &&
-							Object.values(providers).map((provider) => {
+							Object.values(providers).map((provider) => (
 								<button
 									type="button"
 									key={provider.name}
@@ -138,14 +130,14 @@ function Nav() {
 									}}
 									className="black_btn"
 								>
-									Sign In
-								</button>;
-							})}
+									Sign in
+								</button>
+							))}
 					</>
 				)}
 			</div>
 		</nav>
 	);
-}
+};
 
 export default Nav;
