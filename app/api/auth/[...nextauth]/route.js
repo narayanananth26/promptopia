@@ -1,3 +1,4 @@
+import { connectToDB } from "@utils/database";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -10,7 +11,17 @@ const handler = NextAuth({
 	],
 	async session({ session }) {
 		try {
-		} catch (error) {}
+			await connectToDB();
+
+			// check if a user already exists
+
+			// if not, create a new user
+
+			return true;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
 	},
 	async signIn({ profile }) {},
 });
