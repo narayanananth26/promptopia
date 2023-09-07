@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const MyProfile = () => {
 	const { data: session } = useSession();
 
-	const [posts, setPosts] = useState("");
+	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -17,7 +17,7 @@ const MyProfile = () => {
 			setPosts(data);
 		};
 		if (session?.user.id) fetchPosts();
-	}, [session.user.id]);
+	}, [session]);
 
 	const handleEdit = () => {};
 	const handleDelete = async () => {};
@@ -26,7 +26,7 @@ const MyProfile = () => {
 		<Profile
 			name="My"
 			desc="Welcome to your personalized profile page"
-			data={[]}
+			data={posts}
 			handleEdit={handleEdit}
 			handleDelete={handleDelete}
 		>
