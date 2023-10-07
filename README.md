@@ -1,4 +1,4 @@
-.env -
+.env file -
 
 GOOGLE_ID=996245523896-kg9iebrqt9b3f4ktrp4h06upsjitnm9s.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=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
